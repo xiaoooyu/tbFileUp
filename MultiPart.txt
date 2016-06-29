@@ -1,0 +1,29 @@
+POST /upload HTTP/1.1
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1NzUyMTlmNDNhNjFlZjBiMzY2OTFmMTQiLCJleHAiOjE0NjUzOTEyNTEsInN0b3JhZ2UiOiJzdHJpa2VyLWh6In0.2s7MwTUUGJ3aXvs3B56EpSl8rV00al5pH9CPgdwTSiI
+User-Agent: Teambition/4.3.0d Dalvik/2.1.0 (Linux; U; Android 6.0; Android SDK built for x86_64 Build/MASTER)
+Content-Type: multipart/form-data; boundary=ec38033b-3685-474c-99ad-4cf96d9d4e67
+Transfer-Encoding: chunked
+Host: striker.teambition.net
+Connection: Keep-Alive
+Accept-Encoding: gzip
+
+--ec38033b-3685-474c-99ad-4cf96d9d4e67
+Content-Disposition: form-data; name="size"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 6
+
+140938
+--ec38033b-3685-474c-99ad-4cf96d9d4e67
+Content-Disposition: form-data; name="type"
+Content-Transfer-Encoding: binary
+Content-Type: text/plain; charset=utf-8
+Content-Length: 9
+
+image/png
+--ec38033b-3685-474c-99ad-4cf96d9d4e67
+Content-Disposition: form-data; name="file"; filename="110f44ce323de97d1d2d60e9e0e91dc6b9b4.png"
+Content-Transfer-Encoding: binary
+Content-Type: image/png
+
+�PNG

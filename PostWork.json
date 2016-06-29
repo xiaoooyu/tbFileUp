@@ -1,0 +1,20 @@
+{
+  // folder id
+  "_parentId": "570f2f592426cabc0b74175b",
+  // project id
+  "_projectId": "570f2f592426cabc0b741758",
+  //
+  "visible": "members",
+  "works": [{
+    "downloadUrl": "https://striker.teambition.net/storage/110h7fd360abefe8e3bf383de2180efecb05?download=110f44ce323de97d1d2d60e9e0e91dc6b9b4.png&Signature=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMGg3ZmQzNjBhYmVmZThlM2JmMzgzZGUyMTgwZWZlY2IwNSIsImV4cCI6MTQ2NTUxNjgwMH0.HCEOfp0BjrpJRsVI9DIerX3QsBHqv_2c8msHIuisoro",
+    "fileCategory": "image",
+    "fileKey": "110h7fd360abefe8e3bf383de2180efecb05",
+    "fileName": "110f44ce323de97d1d2d60e9e0e91dc6b9b4.png",
+    "fileSize": 140938,
+    "fileType": "png",
+    "imageHeight": 895,
+    "imageWidth": 860,
+    "source": "striker2",
+    "thumbnailUrl": "https://striker.teambition.net/thumbnail/110h7fd360abefe8e3bf383de2180efecb05/w/200/h/200"
+  }]
+}
