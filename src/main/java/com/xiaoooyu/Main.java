@@ -37,8 +37,6 @@ public class Main {
     static final String AUTH_HEADER = "Authorization";
     static final String tempProjectId = "57451bff014396d80f0dd7e5";
 
-    static final String tempParentId = "5757b3f2ec24acd55ae7db20";
-    static final String tempVisible = "members";
     static final String tempDownloadUrl = "https://striker.teambition.net/storage/100hf35beeee2a82f591aaa266692aa5fe92?download=DoesNotExist.txt&Signature=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNvdXJjZSI6Ii9zdG9yYWdlLzEwMGhmMzViZWVlZTJhODJmNTkxYWFhMjY2NjkyYWE1ZmU5MiIsImV4cCI6MTQ2NTUxNjgwMH0.Pz0K3bVWWWeAwnwSbCUYG9d8aCq2y3b0XthyrIHpmPY";
     static final String tempFileCategory = "";
     static final String tempFileKey = "100hf35beeee2a82f591aaa266692aa5fe92";
