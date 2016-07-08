@@ -11,9 +11,9 @@ import static com.xiaoooyu.Main.*;
 
 public class SignIn {
 
-    static final String PATH = SERVER + "oauth2/token";
+    static final String PATH = API_SERVER + "oauth2/token";
 
-    void invoke() {
+    void invoke(String account, String password) {
         try {
             final HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(PATH).openConnection();
 
@@ -23,8 +23,8 @@ public class SignIn {
 
             String postBody = "{\"client_id\": \"" + CLIENT_ID + "\", " +
                     "\"client_secret\": \"" + CLIENT_SECRET + "\", " +
-                    "\"email\": \"" + TB_ACCOUNT + "\", " +
-                    "\"password\": \"" + TB_PASSWORD + "\"}";
+                    "\"email\": \"" + account + "\", " +
+                    "\"password\": \"" + password + "\"}";
             System.out.println(postBody);
 
             OutputStream output = httpURLConnection.getOutputStream();

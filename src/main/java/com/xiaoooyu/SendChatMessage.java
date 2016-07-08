@@ -1,7 +1,5 @@
 package com.xiaoooyu;
 
-import com.google.gson.Gson;
-import com.xiaoooyu.model.Collection;
 import com.xiaoooyu.model.User;
 
 import java.io.ByteArrayInputStream;
@@ -14,15 +12,16 @@ import java.net.URL;
 import static com.xiaoooyu.Main.*;
 
 /**
- * Created by xiaoooyu on 6/8/16.
+ * Created by xiaoooyu on 6/30/16.
  */
-public class UploadWork {
+public class SendChatMessage {
 
-    static final String PATH = API_SERVER + "works";
+    static final String PATH = API_SERVER + "rooms/%s/activities";
 
-    void invoke(Collection collection) {
+    void invoke(String roomId, String message) {
         try {
-            final HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(PATH).openConnection();
+            final String path = String.format(PATH, roomId);
+            final HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(path).openConnection();
 
             httpURLConnection.setDoOutput(true);
             httpURLConnection.setRequestMethod("POST");
@@ -31,7 +30,7 @@ public class UploadWork {
             User user = User.getInstance();
             httpURLConnection.setRequestProperty(AUTH_HEADER, String.format("OAuth2 %s", user.getAccessToken()));
 
-            String postBody = new Gson().toJson(collection, Collection.class);
+            String postBody = "{\"content\": \"" + message + "\"}";
             System.out.println(postBody);
 
             OutputStream output = httpURLConnection.getOutputStream();
@@ -49,10 +48,10 @@ public class UploadWork {
 
             InputStream input;
             if (responseCode / 100 == 2) {
-                System.out.println("add work success");
+                System.out.println("post chat message success");
                 input = httpURLConnection.getInputStream();
             } else {
-                System.out.println("add work failed");
+                System.out.println("post chat message failed");
                 input = httpURLConnection.getErrorStream();
             }
 

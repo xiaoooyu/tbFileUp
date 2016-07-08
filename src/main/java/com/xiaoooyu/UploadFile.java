@@ -101,5 +101,17 @@ public class UploadFile {
         writer.writeBytes(mimeType);
         writer.writeBytes(crlf);
         writer.flush();
+
+        String sizeString = String.format("%d", file.length());
+
+        writer.writeBytes(boundary);
+        writer.writeBytes(String.format("Content-Disposition: form-data; name=\"%s\"%s", "size", crlf));
+        writer.writeBytes(String.format("Content-Length: %s%s", sizeString.length(), crlf));
+        writer.writeBytes(crlf);
+        writer.writeBytes(sizeString);
+        writer.writeBytes(crlf);
+        writer.flush();
+
+
     }
 }
