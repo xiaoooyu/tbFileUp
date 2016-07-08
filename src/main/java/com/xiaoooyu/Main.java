@@ -7,7 +7,7 @@ import java.io.File;
 
 public class Main {
 
-    static final String try1 = "1";
+    static final String try1 = "2";
 
     static final String TB_ACCOUNT_KEY = "tbAccount";
     static final String TB_PASSWORD_KEY = "tbPassword";
