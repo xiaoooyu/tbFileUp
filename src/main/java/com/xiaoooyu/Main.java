@@ -41,8 +41,6 @@ public class Main {
     static final String tempFileCategory = "";
     static final String tempFileKey = "100hf35beeee2a82f591aaa266692aa5fe92";
     static final String tempFileName = "DoesNotExist.txt";
-    static final long tempFileSize = 21;
-    static final String tempFileType = "txt";
     static final Integer tempImageWidth = null;
     static final Integer tempImageHeight = null;
     static final String tempSource = "strike2";
