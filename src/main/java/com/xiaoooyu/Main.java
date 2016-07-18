@@ -1,9 +1,15 @@
 package com.xiaoooyu;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.xiaoooyu.model.Collection;
 import com.xiaoooyu.model.Work;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -31,23 +37,9 @@ public class Main {
     static final String DEF_TBACCOUNT = "android@teambition.com";
     static final String DEF_TBPASSWORD = "Android!23888";
 
-    static final String ACCESS_KEY_DEBUG = "aU0xJBI-xF1Ix6QjgsrZmME10mI=tMQRuT9Df45c8605a6377461c8c7ca8c10c5d0bb0d3699f04e478364decc1074a6aaea30e25ca1361368e9bdafa2c196343418259294b0d6e6a2087f30b3e35f884029c165a3658f810dd6c4e9f1b8380a296b9c720a55078b48d49c06f76203a496387e";
-
-    static final String STRIKER_KEY_DEBUG = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOiI1NzUyMTlmNDNhNjFlZjBiMzY2OTFmMTQiLCJleHAiOjE0NjU1MzczMDYsInN0b3JhZ2UiOiJzdHJpa2VyLWh6In0.e-7ktnXdb-nYbYgBYuJUNaypCndct3p4GwlWHjiMKXc";
     static final String ENCODING = "utf-8";
 
     static final String AUTH_HEADER = "Authorization";
-    static final String tempProjectId = "57451bff014396d80f0dd7e5";
-
-    static final String tempDownloadUrl = "https://striker.teambition.net/storage/100hf35beeee2a82f591aaa266692aa5fe92?download=DoesNotExist.txt&Signature=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyZXNvdXJjZSI6Ii9zdG9yYWdlLzEwMGhmMzViZWVlZTJhODJmNTkxYWFhMjY2NjkyYWE1ZmU5MiIsImV4cCI6MTQ2NTUxNjgwMH0.Pz0K3bVWWWeAwnwSbCUYG9d8aCq2y3b0XthyrIHpmPY";
-    static final String tempFileCategory = "";
-    static final String tempFileKey = "100hf35beeee2a82f591aaa266692aa5fe92";
-    static final String tempFileName = "DoesNotExist.txt";
-    static final Integer tempImageWidth = null;
-    static final Integer tempImageHeight = null;
-    static final String tempSource = "strike2";
-    static final String tempPreviewUrl = "";
-    static final String tempCompressPath = "compress";
 
     private static final Main SINGLETON = new Main();
 
@@ -68,6 +60,8 @@ public class Main {
     private final String notifyMsg = System.getProperty(NOTIFY_MSG_KEY, null);
     private final Boolean isArchive = Boolean.parseBoolean(System.getProperty(ARCHIVE_KEY, "false"));
     private final Boolean isUpload = Boolean.parseBoolean(System.getProperty(UPLOAD_KEY, "true"));
+
+    private final List<String> uploadWorkKeys = new ArrayList<String>();
 
     public static Main getInstance() {
         return SINGLETON;
@@ -109,17 +103,48 @@ public class Main {
             Work work = uploadFile.invoke(childFile);
             if (work != null) {
                 collection.setWorks(new Work[]{work});
-                uploadWork.invoke(collection);
+                String uploadWorkResult = uploadWork.invoke(collection);
+                uploadWorkKeys.addAll(parseUploadWorkKey(uploadWorkResult));
             }
             System.out.println(String.format("upload success: %s", file));
         }
+    }
+
+    private List<? extends String> parseUploadWorkKey(String uploadWorkResult) {
+        ArrayList<String> parseIds = new ArrayList<String>();
+
+        JsonElement jsonElement = new JsonParser().parse(uploadWorkResult);
+
+        if (jsonElement.isJsonArray()) {
+            JsonArray array = jsonElement.getAsJsonArray();
+            for (int i = 0; i < array.size(); i++) {
+                JsonElement childElement = array.get(i);
+                if (childElement.isJsonObject()) {
+                    JsonObject childObject = childElement.getAsJsonObject();
+                    JsonElement idElement = childObject.get("_id");
+                    if (idElement.isJsonPrimitive()) {
+                        parseIds.add(idElement.getAsString());
+                    }
+                }
+
+            }
+        }
+
+        return parseIds;
     }
 
     private void sendNotification() {
         if (notifyPrj != null && notifyMsg != null) {
             String roomId = getProjectChatRoom.invoke(notifyPrj);
             if (roomId != null) {
-                String link = isUpload ? String.format("%s/project/%s/works/%s", SERVER, tbProject, tbFolder) : "";
+                String link = "";
+                if (isUpload) {
+                    if (uploadWorkKeys.size() == 1) {
+                        link = String.format("%s/project/%s/works/%s/work/%s", SERVER, tbProject, tbFolder, uploadWorkKeys.get(0));
+                    } else {
+                        link = String.format("%s/project/%s/works/%s", SERVER, tbProject, tbFolder);
+                    }
+                }
                 String msg = String.format("%s %s", notifyMsg, link);
                 sendChatMessage.invoke(roomId, msg);
             }

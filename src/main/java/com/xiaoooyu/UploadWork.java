@@ -20,7 +20,8 @@ public class UploadWork {
 
     static final String PATH = API_SERVER + "works";
 
-    void invoke(Collection collection) {
+    String invoke(Collection collection) {
+        String result = null;
         try {
             final HttpURLConnection httpURLConnection = (HttpURLConnection) new URL(PATH).openConnection();
 
@@ -56,11 +57,13 @@ public class UploadWork {
                 input = httpURLConnection.getErrorStream();
             }
 
-            String inputString = convertStreamToString(input);
-            System.out.println(inputString);
+            result = convertStreamToString(input);
+            System.out.println(result);
 
         } catch (IOException ex) {
             ex.printStackTrace();
+        } finally {
+            return result;
         }
     }
 }
