@@ -53,19 +53,13 @@ public class SignIn {
                 if (elem.isJsonObject()) {
                     User user = User.getInstance();
                     String accessToken = null;
-                    String strikerAuth = null;
 
                     JsonObject object = elem.getAsJsonObject();
                     accessToken = object.get(User.ACCESS_TOKEN_KEY).getAsString();
 
-                    JsonObject userObject = object.get(User.USER_ELEM_KEY).getAsJsonObject();
-                    strikerAuth = userObject.get(User.STRIKER_AUTH_KEY).getAsString();
-
                     user.setAccessToken(accessToken);
-                    user.setStrikerAuth(strikerAuth);
 
                     System.out.printf("accessToken: %s \r\n", user.getAccessToken());
-                    System.out.printf("strikerAuth: %s \r\n", user.getStrikerAuth());
                     System.out.println();
                 }
             }

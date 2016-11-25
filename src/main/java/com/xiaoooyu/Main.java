@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.xiaoooyu.model.Collection;
+import com.xiaoooyu.model.User;
 import com.xiaoooyu.model.Work;
 
 import java.io.File;
@@ -44,6 +45,8 @@ public class Main {
     private static final Main SINGLETON = new Main();
 
     private SignIn signIn = new SignIn();
+    private GetFileToken fileToken = new GetFileToken();
+
     private UploadFile uploadFile = new UploadFile();
     private UploadWork uploadWork = new UploadWork();
     private ZipJob zipJob = new ZipJob();
@@ -187,6 +190,7 @@ public class Main {
 
     public void signIn() {
         signIn.invoke(tbAccount, tbPassword);
+        fileToken.invoke(User.getInstance());
     }
 
 }
